@@ -1,30 +1,173 @@
 // Login form validation and submission
-document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
-    // Clear previous error messages
-    const emailError = document.getElementById('email-error');
-    const passwordError = document.getElementById('password-error');
-    emailError.style.display = 'none';
-    passwordError.style.display = 'none';
-    emailError.classList.remove('error-message');
-    passwordError.classList.remove('error-message');
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-        showError('Please enter a valid email address', 'email');
-        return;
+document.addEventListener('DOMContentLoaded', () => {
+    // Login Form Handling
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        const emailInput = loginForm.querySelector('#email');
+        const passwordInput = loginForm.querySelector('#password');
+        const emailError = loginForm.querySelector('#email-error');
+        const passwordError = loginForm.querySelector('#password-error');
+
+        // Email validation on input
+        emailInput?.addEventListener('input', () => {
+            const email = emailInput.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                emailError.classList.add('error-message');
+            } else {
+                emailError.style.display = 'none';
+                emailError.classList.remove('error-message');
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            
+            // Clear previous error messages
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                emailError.classList.add('error-message');
+                return;
+            }
+        
+            // Password validation
+            if (!password || password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long';
+                passwordError.style.display = 'block';
+                passwordError.classList.add('error-message');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/dashboard.html';
+                } else {
+                    const errorMessage = data.message || 'Login failed';
+                    emailError.textContent = errorMessage;
+                    emailError.style.display = 'block';
+                    emailError.classList.add('error-message');
+                }
+            } catch (error) {
+                emailError.textContent = 'An error occurred. Please try again.';
+                emailError.style.display = 'block';
+                emailError.classList.add('error-message');
+            }
+        });
     }
-    
-    // Password validation
-    if (!password || password.length < 6) {
-        showError('Password must be at least 6 characters long', 'password');
-        return;
+
+    // Registration Form Handling
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        const nameInput = registerForm.querySelector('#name');
+        const emailInput = registerForm.querySelector('#email');
+        const passwordInput = registerForm.querySelector('#password');
+        const confirmPasswordInput = registerForm.querySelector('#confirm_password');
+        const nameError = registerForm.querySelector('#name-error');
+        const emailError = registerForm.querySelector('#email-error');
+        const passwordError = registerForm.querySelector('#password-error');
+        const confirmPasswordError = registerForm.querySelector('#confirm_password-error');
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Clear previous errors
+            [nameError, emailError, passwordError, confirmPasswordError].forEach(error => {
+                if (error) {
+                    error.style.display = 'none';
+                    error.classList.remove('error-message');
+                }
+            });
+
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // Validation
+            let hasError = false;
+
+            if (!name || name.length < 2) {
+                nameError.textContent = 'Name must be at least 2 characters long';
+                nameError.style.display = 'block';
+                nameError.classList.add('error-message');
+                hasError = true;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                emailError.classList.add('error-message');
+                hasError = true;
+            }
+
+            if (!password || password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long';
+                passwordError.style.display = 'block';
+                passwordError.classList.add('error-message');
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                confirmPasswordError.style.display = 'block';
+                confirmPasswordError.classList.add('error-message');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Registration successful! Please login.');
+                    window.location.href = '/login.html';
+                } else {
+                    const errorMessage = data.message || 'Registration failed';
+                    emailError.textContent = errorMessage;
+                    emailError.style.display = 'block';
+                    emailError.classList.add('error-message');
+                }
+            } catch (error) {
+                emailError.textContent = 'An error occurred. Please try again.';
+                emailError.style.display = 'block';
+                emailError.classList.add('error-message');
+            }
+        });
     }
+});
     
     try {
         const response = await fetch('/api/auth/login', {
