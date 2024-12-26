@@ -8,17 +8,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailError = loginForm.querySelector('#email-error');
         const passwordError = loginForm.querySelector('#password-error');
 
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return email && emailRegex.test(email);
+        }
+
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+            element.classList.add('error-message');
+        }
+
+        function hideError(element) {
+            element.style.display = 'none';
+            element.classList.remove('error-message');
+        }
+
         // Email validation on input
         emailInput?.addEventListener('input', () => {
             const email = emailInput.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                emailError.textContent = 'Please enter a valid email address';
-                emailError.style.display = 'block';
-                emailError.classList.add('error-message');
+            if (!validateEmail(email)) {
+                showError(emailError, 'Please enter a valid email address');
             } else {
-                emailError.style.display = 'none';
-                emailError.classList.remove('error-message');
+                hideError(emailError);
             }
         });
 
@@ -29,15 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = passwordInput.value;
             
             // Clear previous error messages
-            emailError.style.display = 'none';
-            passwordError.style.display = 'none';
+            hideError(emailError);
+            hideError(passwordError);
             
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                emailError.textContent = 'Please enter a valid email address';
-                emailError.style.display = 'block';
-                emailError.classList.add('error-message');
+            // Validate email immediately and ensure error is visible
+            if (!validateEmail(email)) {
+                showError(emailError, 'Please enter a valid email address');
+                // Force a reflow to ensure the error is immediately visible
+                emailError.offsetHeight;
+                return;
+            }
+            
+            // Validate password length
+            if (!password || password.length < 6) {
+                showError(passwordError, 'Password must be at least 6 characters long');
+                // Force a reflow to ensure the error is immediately visible
+                passwordError.offsetHeight;
                 return;
             }
         
@@ -90,15 +109,61 @@ document.addEventListener('DOMContentLoaded', () => {
         const passwordError = registerForm.querySelector('#password-error');
         const confirmPasswordError = registerForm.querySelector('#confirm_password-error');
 
+        // Real-time validation for name
+        nameInput?.addEventListener('input', () => {
+            const name = nameInput.value;
+            if (!name || name.length < 2) {
+                showError(nameError, 'Name must be at least 2 characters long');
+            } else {
+                hideError(nameError);
+            }
+        });
+
+        // Real-time validation for email
+        emailInput?.addEventListener('input', () => {
+            const email = emailInput.value;
+            if (!validateEmail(email)) {
+                showError(emailError, 'Please enter a valid email address');
+            } else {
+                hideError(emailError);
+            }
+        });
+
+        // Real-time validation for password
+        passwordInput?.addEventListener('input', () => {
+            const password = passwordInput.value;
+            if (!password || password.length < 6) {
+                showError(passwordError, 'Password must be at least 6 characters long');
+            } else {
+                hideError(passwordError);
+            }
+            // Check confirm password match if it has a value
+            if (confirmPasswordInput.value) {
+                if (password !== confirmPasswordInput.value) {
+                    showError(confirmPasswordError, 'Passwords do not match');
+                } else {
+                    hideError(confirmPasswordError);
+                }
+            }
+        });
+
+        // Real-time validation for confirm password
+        confirmPasswordInput?.addEventListener('input', () => {
+            const confirmPassword = confirmPasswordInput.value;
+            const password = passwordInput.value;
+            if (password !== confirmPassword) {
+                showError(confirmPasswordError, 'Passwords do not match');
+            } else {
+                hideError(confirmPasswordError);
+            }
+        });
+
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Clear previous errors
             [nameError, emailError, passwordError, confirmPasswordError].forEach(error => {
-                if (error) {
-                    error.style.display = 'none';
-                    error.classList.remove('error-message');
-                }
+                if (error) hideError(error);
             });
 
             const name = nameInput.value;
@@ -109,32 +174,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Validation
             let hasError = false;
 
+
             if (!name || name.length < 2) {
-                nameError.textContent = 'Name must be at least 2 characters long';
-                nameError.style.display = 'block';
-                nameError.classList.add('error-message');
+                showError(nameError, 'Name must be at least 2 characters long');
                 hasError = true;
             }
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                emailError.textContent = 'Please enter a valid email address';
-                emailError.style.display = 'block';
-                emailError.classList.add('error-message');
+            if (!validateEmail(email)) {
+                showError(emailError, 'Please enter a valid email address');
                 hasError = true;
             }
 
             if (!password || password.length < 6) {
-                passwordError.textContent = 'Password must be at least 6 characters long';
-                passwordError.style.display = 'block';
-                passwordError.classList.add('error-message');
+                showError(passwordError, 'Password must be at least 6 characters long');
                 hasError = true;
             }
 
             if (password !== confirmPassword) {
-                confirmPasswordError.textContent = 'Passwords do not match';
-                confirmPasswordError.style.display = 'block';
-                confirmPasswordError.classList.add('error-message');
+                showError(confirmPasswordError, 'Passwords do not match');
                 hasError = true;
             }
 

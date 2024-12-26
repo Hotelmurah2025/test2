@@ -120,14 +120,20 @@ class FrontendTest {
             $submitButton = $this->driver->findElement(WebDriverBy::id('login-submit'));
             $submitButton->click();
             
+            // Wait for error message with increased timeout and visibility check
             $errorMessage = $this->wait->until(
-                WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::className('error-message'))
+                WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::className('error-message'))
             );
             
-            if ($errorMessage->isDisplayed()) {
+            if ($errorMessage->isDisplayed() && $errorMessage->getText() !== '') {
                 echo "PASSED\n";
             } else {
-                echo "FAILED (no error shown)\n";
+                echo "FAILED (no error shown or empty)\n";
+            }
+            
+            // Take screenshot if test fails
+            if (!$errorMessage->isDisplayed() || $errorMessage->getText() === '') {
+                $this->driver->takeScreenshot('error_validation_failed.png');
             }
         } catch (\Exception $e) {
             echo "FAILED (" . $e->getMessage() . ")\n";
