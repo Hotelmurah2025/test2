@@ -13,9 +13,46 @@ class FrontendTest {
     private $wait;
     private $baseUrl = "http://localhost:8080";
 
+    private function waitForServer($url, $timeout = 30) {
+        $start = time();
+        while (time() - $start < $timeout) {
+            try {
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_NOBODY, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                curl_exec($ch);
+                $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+                if ($responseCode >= 200 && $responseCode < 400) {
+                    return true;
+                }
+            } catch (\Exception $e) {
+                // Ignore connection errors
+            }
+            sleep(1);
+        }
+        throw new \RuntimeException("Server at $url did not become available within $timeout seconds");
+    }
+
     public function __construct() {
+        // Wait for servers to be ready
+        $this->waitForServer('http://localhost:8080');
+        $this->waitForServer('http://localhost:4444');
+
         $host = 'http://localhost:4444/wd/hub';
         $capabilities = DesiredCapabilities::chrome();
+        
+        // Configure Chrome options for headless operation
+        $options = new \Facebook\WebDriver\Chrome\ChromeOptions();
+        $options->addArguments([
+            '--headless',
+            '--disable-gpu',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--window-size=1920,1080'
+        ]);
+        $capabilities->setCapability(\Facebook\WebDriver\Chrome\ChromeOptions::CAPABILITY, $options);
+        
         $this->driver = RemoteWebDriver::create($host, $capabilities);
         $this->wait = new WebDriverWait($this->driver, 10);
     }
