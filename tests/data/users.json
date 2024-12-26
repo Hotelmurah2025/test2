@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "email": "test.user@example.com",
+      "password": "Test123!",
+      "full_name": "Test User"
+    },
+    {
+      "email": "admin@hotelmurah.com",
+      "password": "Admin123!",
+      "full_name": "Admin User",
+      "is_admin": true
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 class Database {
     private $host = "localhost";
     private $db_name = "hotel_booking";
-    private $username = "root";
-    private $password = "";
+    private $username = "hotel_user";
+    private $password = "hotel_password";
     private $conn;
 
     public function getConnection() {
