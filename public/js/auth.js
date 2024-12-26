@@ -6,26 +6,23 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value;
     
     // Clear previous error messages
-    document.getElementById('email-error').style.display = 'none';
-    document.getElementById('password-error').style.display = 'none';
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    emailError.style.display = 'none';
+    passwordError.style.display = 'none';
+    emailError.classList.remove('error-message');
+    passwordError.classList.remove('error-message');
     
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
-        const errorElement = document.getElementById('email-error');
-        errorElement.textContent = 'Please enter a valid email address';
-        errorElement.style.display = 'block';
-        errorElement.classList.add('text-danger');
-        errorElement.style.color = 'red';
+        showError('Please enter a valid email address', 'email');
         return;
     }
     
     // Password validation
     if (!password || password.length < 6) {
-        const errorElement = document.getElementById('password-error');
-        errorElement.textContent = 'Password must be at least 6 characters long';
-        errorElement.style.display = 'block';
-        errorElement.classList.add('text-danger');
+        showError('Password must be at least 6 characters long', 'password');
         return;
     }
     
@@ -46,17 +43,11 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
             window.location.href = '/dashboard.html';
         } else {
             // Login failed
-            const errorElement = document.getElementById('password-error');
-            errorElement.textContent = data.message || 'Invalid email or password';
-            errorElement.style.display = 'block';
-            errorElement.classList.add('text-danger');
+            showError(data.message || 'Invalid email or password', 'password');
         }
     } catch (error) {
         console.error('Login error:', error);
-        const errorElement = document.getElementById('password-error');
-        errorElement.textContent = 'An error occurred. Please try again.';
-        errorElement.style.display = 'block';
-        errorElement.classList.add('text-danger');
+        showError('An error occurred. Please try again.', 'password');
     }
 });
 

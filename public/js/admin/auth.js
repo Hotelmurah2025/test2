@@ -31,5 +31,9 @@ function showError(message, field) {
     if (errorElement) {
         errorElement.textContent = message;
         errorElement.style.display = 'block';
+        errorElement.classList.add('error-message');
+        errorElement.style.color = 'red';
+        errorElement.style.marginTop = '0.25rem';
+        errorElement.style.fontSize = '0.875rem';
     }
 }
