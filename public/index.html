@@ -55,36 +55,24 @@
                             <input type="text" class="form-control" id="location" placeholder="Where are you going?">
                         </div>
                         <div class="col-md-2">
-                            <label for="checkIn" class="form-label">Check-in</label>
-                            <input type="text" class="form-control datepicker" id="checkIn">
+                            <label for="check-in" class="form-label">Check-in</label>
+                            <input type="date" class="form-control" id="check-in" required>
                         </div>
                         <div class="col-md-2">
-                            <label for="checkOut" class="form-label">Check-out</label>
-                            <input type="text" class="form-control datepicker" id="checkOut">
+                            <label for="check-out" class="form-label">Check-out</label>
+                            <input type="date" class="form-control" id="check-out" required>
                         </div>
                         <div class="col-md-2">
                             <label for="guests" class="form-label">Guests</label>
-                            <select class="form-select" id="guests">
-                                <option value="1">1 Guest</option>
-                                <option value="2">2 Guests</option>
-                                <option value="3">3 Guests</option>
-                                <option value="4">4 Guests</option>
-                                <option value="5">5+ Guests</option>
-                            </select>
+                            <input type="number" class="form-control" id="guests" min="1" max="10" value="1" required>
                         </div>
                         <div class="col-md-2">
                             <label for="rooms" class="form-label">Rooms</label>
-                            <select class="form-select" id="rooms">
-                                <option value="1">1 Room</option>
-                                <option value="2">2 Rooms</option>
-                                <option value="3">3 Rooms</option>
-                                <option value="4">4 Rooms</option>
-                                <option value="5">5+ Rooms</option>
-                            </select>
+                            <input type="number" class="form-control" id="rooms" min="1" max="5" value="1" required>
                         </div>
                         <div class="col-md-1">
                             <label class="form-label">&nbsp;</label>
-                            <button type="submit" class="btn btn-primary w-100">Search</button>
+                            <button type="submit" class="btn btn-primary w-100" id="search-submit">Search</button>
                         </div>
                     </form>
                 </div>

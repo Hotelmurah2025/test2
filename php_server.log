@@ -1,0 +1,49 @@
+[Thu Dec 26 05:07:32 2024] PHP 8.1.2-1ubuntu2.20 Development Server (http://localhost:8080) started
+[Thu Dec 26 05:07:42 2024] [::1]:36182 Accepted
+[Thu Dec 26 05:07:42 2024] [::1]:36182 [200]: HEAD /
+[Thu Dec 26 05:07:42 2024] [::1]:36182 Closing
+[Thu Dec 26 05:07:42 2024] [::1]:36192 Accepted
+[Thu Dec 26 05:07:42 2024] [::1]:36192 [200]: GET /
+[Thu Dec 26 05:07:42 2024] [::1]:36192 Closing
+[Thu Dec 26 05:07:42 2024] [::1]:36202 Accepted
+[Thu Dec 26 05:07:42 2024] [::1]:36214 Accepted
+[Thu Dec 26 05:07:42 2024] [::1]:36202 [200]: GET /css/style.css
+[Thu Dec 26 05:07:42 2024] [::1]:36214 [200]: GET /js/main.js
+[Thu Dec 26 05:07:42 2024] [::1]:36202 Closing
+[Thu Dec 26 05:07:42 2024] [::1]:36214 Closing
+[Thu Dec 26 05:07:42 2024] [::1]:36228 Accepted
+[Thu Dec 26 05:07:42 2024] [::1]:36228 [200]: GET /api/auth/check
+[Thu Dec 26 05:07:42 2024] [::1]:36228 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36234 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36234 [404]: GET /favicon.ico - No such file or directory
+[Thu Dec 26 05:07:43 2024] [::1]:36234 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36236 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36236 [200]: GET /login.html
+[Thu Dec 26 05:07:43 2024] [::1]:36236 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36252 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36252 [200]: GET /css/style.css
+[Thu Dec 26 05:07:43 2024] [::1]:36252 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36260 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36260 [200]: POST /api/auth/login
+[Thu Dec 26 05:07:43 2024] [::1]:36260 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36264 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36264 [200]: GET /register.html
+[Thu Dec 26 05:07:43 2024] [::1]:36264 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36276 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36276 [200]: GET /css/style.css
+[Thu Dec 26 05:07:43 2024] [::1]:36276 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36286 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36286 [200]: GET /
+[Thu Dec 26 05:07:43 2024] [::1]:36286 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36292 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36296 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36292 [200]: GET /css/style.css
+[Thu Dec 26 05:07:43 2024] [::1]:36296 [200]: GET /js/main.js
+[Thu Dec 26 05:07:43 2024] [::1]:36292 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36296 Closing
+[Thu Dec 26 05:07:43 2024] [::1]:36302 Accepted
+[Thu Dec 26 05:07:43 2024] [::1]:36302 [200]: GET /api/auth/check
+[Thu Dec 26 05:07:43 2024] [::1]:36302 Closing
+[Thu Dec 26 05:07:44 2024] [::1]:36308 Accepted
+[Thu Dec 26 05:07:44 2024] [::1]:36308 [404]: GET /admin/login.html - No such file or directory
+[Thu Dec 26 05:07:44 2024] [::1]:36308 Closing

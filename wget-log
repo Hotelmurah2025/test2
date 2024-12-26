@@ -1,0 +1,16 @@
+--2024-12-26 04:57:45--  https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.16.0/selenium-server-4.16.1.jar
+Resolving github.com (github.com)... 140.82.116.4
+Connecting to github.com (github.com)|140.82.116.4|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/7613257/3c2e0318-eeae-49b7-a0a1-80c39e38837e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20241226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241226T045745Z&X-Amz-Expires=300&X-Amz-Signature=1af371f195b8eba77e890d130c5a2c320c53cfacd4a0f6547d8742487fbdecef&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dselenium-server-4.16.1.jar&response-content-type=application%2Foctet-stream [following]
+--2024-12-26 04:57:45--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/7613257/3c2e0318-eeae-49b7-a0a1-80c39e38837e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction%2F20241226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241226T045745Z&X-Amz-Expires=300&X-Amz-Signature=1af371f195b8eba77e890d130c5a2c320c53cfacd4a0f6547d8742487fbdecef&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3Dselenium-server-4.16.1.jar&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.111.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38729222 (37M) [application/octet-stream]
+Saving to: 'selenium-server-4.16.1.jar'
+
+          selenium-   0%[                    ]       0  --.-KB/s                        selenium-s  27%[====>               ]  10.01M  49.4MB/s                       selenium-se  54%[=========>          ]  20.01M  47.8MB/s                      selenium-ser  81%[===============>    ]  30.01M  46.7MB/s               selenium-server-4.1 100%[===================>]  36.93M  50.7MB/s    in 0.7s    
+
+2024-12-26 04:57:46 (50.7 MB/s) - 'selenium-server-4.16.1.jar' saved [38729222/38729222]
+

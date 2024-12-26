@@ -77,8 +77,8 @@ async function handleSearch(e) {
     
     const searchParams = new URLSearchParams({
         location: document.getElementById('location').value,
-        check_in: document.getElementById('checkIn').value,
-        check_out: document.getElementById('checkOut').value,
+        check_in: document.getElementById('check-in').value,
+        check_out: document.getElementById('check-out').value,
         guests: document.getElementById('guests').value,
         rooms: document.getElementById('rooms').value
     });
@@ -227,7 +227,15 @@ async function handleLogout(e) {
 }
 
 // Show error message
-function showError(message) {
-    // Implement error notification system
-    alert(message); // Replace with better UI notification
+function showError(message, elementId = null) {
+    if (elementId) {
+        const errorElement = document.querySelector(`#${elementId} + .error-message`);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+    } else {
+        // Fallback to alert if no specific element
+        alert(message);
+    }
 }
