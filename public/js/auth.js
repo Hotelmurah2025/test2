@@ -10,11 +10,13 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     document.getElementById('password-error').style.display = 'none';
     
     // Email validation
-    if (!email || !email.includes('@')) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
         const errorElement = document.getElementById('email-error');
         errorElement.textContent = 'Please enter a valid email address';
         errorElement.style.display = 'block';
         errorElement.classList.add('text-danger');
+        errorElement.style.color = 'red';
         return;
     }
     
@@ -77,7 +79,8 @@ document.getElementById('registerForm')?.addEventListener('submit', async (e) =>
         return;
     }
     
-    if (!email || !email.includes('@')) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
         showError('Please enter a valid email address', 'email');
         return;
     }
@@ -123,5 +126,8 @@ function showError(message, fieldId) {
         errorElement.textContent = message;
         errorElement.style.display = 'block';
         errorElement.classList.add('text-danger');
+        errorElement.style.color = 'red';
+        errorElement.style.marginTop = '0.25rem';
+        errorElement.style.fontSize = '0.875rem';
     }
 }
